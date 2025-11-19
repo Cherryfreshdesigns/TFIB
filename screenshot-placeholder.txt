@@ -1,0 +1,17 @@
+# Screenshot Placeholder
+
+For a complete WordPress theme, you should add a screenshot.png file (880x660px) showing a preview of your theme.
+
+This file should be placed at the root of the theme directory as `screenshot.png`.
+
+You can create a screenshot by:
+1. Setting up WordPress with your theme
+2. Creating sample content with WooCommerce products
+3. Taking a screenshot of the homepage
+4. Resizing to 880x660 pixels
+5. Saving as screenshot.png
+
+Recommended tools:
+- GIMP (free)
+- Photoshop
+- Online screenshot tools
