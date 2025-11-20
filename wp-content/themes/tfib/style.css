@@ -1,0 +1,24 @@
+/*
+Theme Name: TFIB
+Theme URI: https://example.com/tfib
+Author: TFIB
+Author URI: https://example.com
+Description: Custom WooCommerce + Elementor child theme for TFIB based on Hello Elementor.
+Template: hello-elementor
+Version: 1.0.0
+Tested up to: 6.6
+Requires PHP: 7.4
+Text Domain: tfib
+*/
+
+/* Base reset and WooCommerce overrides loaded later */
+
+/* Full-bleed content area for WooCommerce archive/single pages */
+body.woocommerce-page .site-main,
+body.woocommerce .site-main {
+	max-width: none;      /* remove width cap */
+	width: 100%;
+	margin: 0;            /* let content run edge-to-edge */
+	padding-left: 0;
+	padding-right: 0;
+}

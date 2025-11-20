@@ -1,0 +1,589 @@
+/* TFIB WooCommerce overrides */
+
+body.woocommerce-page {
+	background-color: #ffffff;
+	/* Inherit Elementor / Hello font stack so shop matches the rest of the site */
+	font-family: var(--e-global-typography-text-font-family, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+}
+
+.tfib-shop-layout {
+	display: grid;
+	grid-template-columns: 280px 1fr;
+	gap: 20px;
+	padding: 40px 1vw 80px;
+}
+
+/* When the sidebar is hidden (desktop), let the content span full width */
+body.tfib-sidebar-hidden .tfib-shop-layout {
+	grid-template-columns: 1fr;
+}
+
+.tfib-shop-header {
+	max-width: 95vw;
+	margin: 20px auto 0;
+	padding: 0 1vw 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.tfib-shop-header nav.woocommerce-breadcrumb {
+	flex-basis: 100%;
+	margin-bottom: 4px;
+}
+/* Klarna promo block under Add to Cart */
+.tfib-klarna-promo {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border: 1px solid #e5e5e5;
+    background: #fafafa;
+    font-size: 0.9rem;
+    max-width: 420px;
+}
+
+.tfib-shop-header-title {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+}
+
+.tfib-shop-header-controls {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.tfib-filter-offcanvas-toggle {
+	    display: inline-flex;
+	    align-items: center;
+	    gap: 6px;
+	    border: none;
+	    color: #111;
+	    background: #fff;
+	    padding: 8px 14px;
+	    cursor: pointer;
+	    /* text-transform: uppercase; */
+	    font-size: 1.5rem;
+	    letter-spacing: 0;
+}
+
+/* Force this button to ignore any global pink hover styles */
+.tfib-filter-offcanvas-toggle,
+.tfib-filter-offcanvas-toggle:hover,
+.tfib-filter-offcanvas-toggle:focus,
+.tfib-filter-offcanvas-toggle:active {
+	background-color: #fff !important;
+	color: #111 !important;
+	border-color: #111 !important;
+}
+
+.tfib-filter-offcanvas-toggle .tfib-filter-icon {
+	width: 24px;
+	height: 24px;
+	background-image: url('https://tfib.local/wp-content/uploads/2025/11/filter-icon.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+ .tfib-shop-header-sort .woocommerce-ordering {
+	position: relative;
+	display: inline-flex;
+	align-items: baseline; /* align caret closer vertically to label text */
+}
+
+.tfib-shop-header-sort .woocommerce-ordering select.orderby {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: none;
+	background-color: #fff; /* white background */
+	color: #111;            /* dark text */
+	font-size: 1.5rem;
+	padding: 0 20px 0 0; /* space for chevron */
+	cursor: pointer;
+}
+
+.tfib-shop-header-sort .woocommerce-ordering::after {
+    content: "\f078";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    top: 60%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1.2rem;
+    color: #111;
+}
+
+.tfib-shop-filters-toggle {
+	display: none;
+	align-items: center;
+	gap: 8px;
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	border: 1px solid #000;
+	padding: 10px 16px;
+	background: #fff;
+	cursor: pointer;
+}
+
+.tfib-shop-filters-toggle:hover {
+	background: #111;
+	color: #fff;
+}
+
+.tfib-shop-sidebar {
+	position: relative;
+}
+
+/* Desktop: allow sidebar to be hidden via .is-open toggle as well */
+.tfib-shop-sidebar.is-open {
+	display: none;
+}
+
+.tfib-shop-filters {
+	background: #fff;
+	padding: 20px;
+	position: sticky;
+	top: 100px;
+	max-height: calc(100vh - 140px);
+	overflow-y: auto;
+}
+
+.tfib-shop-filters h3 {
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	margin: 20px 0 10px;
+}
+
+/* Woo Product Categories block in TFIB sidebar */
+.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list {
+	list-style: none;
+	margin: 0 0 16px;
+	padding: 0;
+}
+
+.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item {
+	margin: 0 0 6px;
+	padding: 0;
+	border: none;
+}
+
+.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a {
+	display: inline-block;
+	font-size: 1.25rem;
+	color: #111;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a:hover {
+	text-decoration: underline;
+}
+
+/* WPC Product Categories filter: stack items vertically and remove borders */
+.tfib-shop-filters .wpc-filter-product_cat .wpc-filters-ul-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tfib-shop-filters .wpc-filter-product_cat .wpc-filters-ul-list li {
+	display: block;
+	margin: 0 0 6px;
+	padding: 0;
+	border: none;
+}
+
+.tfib-shop-filters .wpc-filter-product_cat .wpc-term-item-content-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	border: none;
+	padding: 0;
+}
+
+/* Hide empty filter widgets/containers so inactive filters are not visible */
+.tfib-shop-filters .wpc-filter-chips-list.wpc-empty-chips-container,
+.tfib-shop-filters .wpc-filter,
+.tfib-shop-filters .wpc-filter:not(.wpc-has-items),
+.tfib-shop-filters .wpc-filter .wpc-filter-content:empty,
+.tfib-shop-filters .tfib-no-filters {
+	display: none !important;
+}
+
+.tfib-shop-filters .tfib-filter-group:first-of-type h3 {
+	margin-top: 0;
+}
+
+.tfib-filter-group ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tfib-filter-group li {
+	margin-bottom: 6px;
+}
+
+.tfib-filter-group a,
+.tfib-filter-group label {
+	font-size: 12px;
+	color: #111;
+	cursor: pointer;
+}
+
+.tfib-price-filter-form {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+}
+
+.tfib-price-filter-form input[type="number"] {
+	width: 60px;
+	border: 1px solid #e5e5e5;
+	padding: 4px 6px;
+	font-size: 12px;
+}
+
+.tfib-price-filter-form button[type="submit"] {
+	border: 1px solid #111;
+	background: #fff;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	padding: 4px 10px;
+	cursor: pointer;
+}
+
+.tfib-price-separator {
+	font-size: 12px;
+}
+
+.tfib-filter-sortby select.orderby {
+	width: 100%;
+	border: 1px solid #e5e5e5;
+	font-size: 12px;
+	padding: 6px 8px;
+	background: #fff;
+}
+
+.tfib-filter-attribute .widget_layered_nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tfib-filter-attribute .widget_layered_nav li {
+	margin-bottom: 6px;
+}
+
+.tfib-filter-attribute .widget_layered_nav a {
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.tfib-products-grid {
+	display: grid;
+	/* Default: 2 across on small/medium screens */
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 24px 16px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Tablet / desktop: always 3 across, Nike-style */
+@media (min-width: 1024px) {
+	.tfib-products-grid {
+		/* 3 columns with a generous max width similar to Nike (~592px) */
+		grid-template-columns: repeat(3, minmax(0, 592px));
+		gap: 32px 24px;
+		justify-content: center; /* center the row when cards don't fill full width */
+	}
+}
+
+.tfib-product-card {
+	
+	padding: 0px;
+	text-align: left;
+}
+
+.tfib-product-card .woocommerce-LoopProduct-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.tfib-product-card img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 18px;
+}
+
+.tfib-product-card .woocommerce-loop-product__title {
+	font-size: 1.2rem;
+    font-weight: 600;
+	text-transform: normal;
+	margin: 0 0 4px;
+}
+
+.tfib-product-card .price {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.variations th {
+    background-color: transparent;
+    border: none;
+}
+.woocommerce div.product form.cart .variations td, .woocommerce div.product form.cart .variations th {
+    background-color: transparent;
+    border: none;
+}
+/* Shop header: align breadcrumb and title left with clean spacing */
+.woocommerce-products-header__title.page-title {
+	font-size: 2rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+.woocommerce-products-header__title.page-title .tfib-product-count {
+	font-size: 1.2rem;
+}
+
+/* Align WooCommerce buttons with Elementor primary button styles */
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce .added_to_cart,
+.woocommerce .single_add_to_cart_button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+	border-radius: 0;
+	border: 1px solid currentColor;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 1rem;
+	font-weight: 700;
+	background-color: var(--e-global-color-primary, #000);
+	color: #fff;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Match Elementor mini-cart footer buttons with theme button style */
+.elementor-menu-cart__footer-buttons .elementor-button,
+.elementor-menu-cart__footer-buttons .elementor-button.elementor-size-md,
+.elementor-menu-cart__footer-buttons .elementor-button.elementor-size-sm {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+	border-radius: 30px;
+	border: 1px solid currentColor;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: .75rem;
+	font-weight: 600;
+	background-color: var(--e-global-color-primary, #000);
+	color: #fff;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.elementor-menu-cart__product-price {
+    font-size: 1rem;
+    font-weight: 500;
+    color:#111;
+}
+.elementor-menu-cart__product-remove.product-remove {
+    border: 1px solid var(--remove-item-button-color, #111);
+}
+.elementor-menu-cart__product-remove:after, .elementor-menu-cart__product-remove:before {
+    background: var(--remove-item-button-color, #111);
+    content: "";
+    height: 1px;
+    left: 25%;
+    margin-top: -1px;
+    position: absolute;
+    top: 50%;
+    transition: .3s;
+    width: 50%;
+    z-index: 1;
+}
+.woocommerce-checkout-review-order-table tr.cart-subtotal {
+    text-align: left;
+}
+tr.woocommerce-shipping-totals.shipping {
+    text-align: left;
+}
+.woocommerce-checkout-review-order-table th.product-name {
+    text-align: left;
+}
+.woocommerce-checkout-review-order-table tr.order-total {
+    text-align: left;
+}
+.elementor-menu-cart__footer-buttons .elementor-button:hover,
+.elementor-menu-cart__footer-buttons .elementor-button:focus {
+	background-color: transparent;
+	color: var(--e-global-color-primary, #000);
+	border-color: var(--e-global-color-primary, #000);
+}
+
+/* Tighter quantity field on variable product add-to-cart area */
+.woocommerce div.product form.cart .variations_button .quantity input.qty,
+.woocommerce div.product form.cart .quantity input.qty {
+	width: 70px;       /* reduce width from Woo default */
+	max-width: 100%;
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.woocommerce .added_to_cart:hover,
+.woocommerce .single_add_to_cart_button:hover {
+	background-color: transparent;
+	color: var(--e-global-color-primary, #000);
+	border-color: var(--e-global-color-primary, #000);
+}
+
+/* Hide default WooCommerce result count and ordering bar above the TFIB grid */
+.tfib-shop-main .woocommerce-result-count,
+.tfib-shop-main .woocommerce-ordering {
+	display: none;
+}
+
+/* Hide Filter Everything (wpc) filter UI and chips inside main content; keep sidebar filters only */
+.tfib-shop-main .wpc-custom-selected-terms,
+.tfib-shop-main .wpc-filters-main-wrap {
+	display: none !important;
+}
+
+/* Hide visible add-to-cart buttons on archive cards so the whole card acts as the link */
+.tfib-products-grid .button.product_type_simple,
+.tfib-products-grid .button.product_type_variable,
+.tfib-products-grid .added_to_cart {
+	display: none !important;
+}
+
+/* Pagination */
+.woocommerce nav.woocommerce-pagination {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.woocommerce nav.woocommerce-pagination ul {
+	border: none;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+}
+
+.woocommerce nav.woocommerce-pagination ul li {
+	border: none;
+	margin: 0 4px;
+	list-style: none;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a, .woocommerce nav.woocommerce-pagination ul li span {
+    min-width: 42px;
+    height: 42px;
+    line-height: 28px;
+    border-radius: 0;
+    border: 1px solid #525151;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
+/* Active/current pagination item */
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.woocommerce nav.woocommerce-pagination ul li a.current {
+	background-color: #525151;
+	color: #fff;
+	border-color: #525151;
+}
+.wc-block-product-filter-chips__text {
+	font-size: 1.5rem;
+	padding: 2em;
+}
+
+/* Filter chips hover: white text with dark border color */
+.wc-block-product-filter-chips__chip:hover .wc-block-product-filter-chips__text,
+.wc-block-product-filter-chips__chip:focus .wc-block-product-filter-chips__text {
+	color: #111;
+}
+
+.wc-block-product-filter-chips__chip:hover,
+.wc-block-product-filter-chips__chip:focus {
+	border-color: #525151;
+}
+/* Responsive */
+@media (max-width: 1024px) {
+	.tfib-shop-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.tfib-shop-header {
+		align-items: flex-start;
+	}
+
+	.tfib-shop-header-controls {
+		width: 100%;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	/* Off-canvas sidebar for filters on tablet/mobile */
+	.tfib-shop-sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 80vw;
+		max-width: 360px;
+		height: 100vh;
+		background: #fff;
+		box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+		transform: translateX(-100%);
+		transition: transform 0.25s ease-out;
+		z-index: 999;
+		padding: 80px 20px 20px; /* leave room for site header */
+	}
+
+	.tfib-shop-sidebar.is-open {
+		transform: translateX(0);
+	}
+
+	.tfib-shop-filters-toggle {
+		display: inline-flex;
+		margin-bottom: 16px;
+	}
+
+	.tfib-shop-filters {
+		position: static;
+		max-height: calc(100vh - 140px);
+	}
+
+	body.tfib-filters-open {
+		overflow: hidden;
+	}
+}
+
+@media (max-width: 768px) {
+	.tfib-products-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px 12px;
+	}
+}
