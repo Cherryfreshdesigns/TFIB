@@ -145,6 +145,18 @@ function tfib_filter_shipping_rates( $rates, $package ) {
 }
 
 /**
+ * Remove "Customer matched zone" notices from checkout
+ */
+add_filter( 'woocommerce_add_message', 'tfib_remove_zone_matching_notices' );
+function tfib_remove_zone_matching_notices( $message ) {
+	// Remove "Customer matched zone" messages
+	if ( stripos( $message, 'Customer matched zone' ) !== false ) {
+		return '';
+	}
+	return $message;
+}
+
+/**
  * Klarna promo shortcode.
  * Usage: [tfib_klarna_promo]
  
