@@ -95,10 +95,10 @@ add_filter( 'woocommerce_catalog_orderby', 'tfib_customize_woocommerce_orderby' 
  */
 add_filter( 'woocommerce_package_rates', 'tfib_filter_shipping_rates', 100, 2 );
 function tfib_filter_shipping_rates( $rates, $package ) {
-	// Keywords to include - if a shipping option contains these, it will be shown
+	// Keywords to include - if a shipping option contains ANY of these, it will be shown
 	$include_keywords = [
-		'usps',          // All USPS options
-		'ups',           // All UPS options
+		'stamps.com',    // Stamps.com (USPS) options
+		'ups',           // UPS options
 		// 'fedex',      // Uncomment to add FedEx options
 	];
 	
@@ -106,6 +106,8 @@ function tfib_filter_shipping_rates( $rates, $package ) {
 	$exclude_keywords = [
 		'media mail',    // Exclude Media Mail (books/media only)
 		// 'parcel select', // Uncomment to exclude slower Parcel Select
+		// 'first class',   // Uncomment to exclude First Class Mail
+		// 'ground advantage', // Uncomment to exclude Ground Advantage
 	];
 	
 	$filtered_rates = [];
