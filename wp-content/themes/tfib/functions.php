@@ -171,6 +171,36 @@ function tfib_clean_shipping_labels( $label, $method ) {
 }
 
 /**
+ * Customize "Added to Cart" message to include product name
+ */
+add_filter( 'wc_add_to_cart_message_html', 'tfib_custom_add_to_cart_message', 10, 2 );
+function tfib_custom_add_to_cart_message( $message, $products ) {
+	$titles = [];
+	$count = 0;
+
+	foreach ( $products as $product_id => $qty ) {
+		$product = wc_get_product( $product_id );
+		if ( $product ) {
+			$titles[] = sprintf(
+				'<span class="product-name">%s</span>',
+				$product->get_name()
+			);
+			$count += $qty;
+		}
+	}
+
+	$titles_string = implode( ', ', $titles );
+	
+	$message = sprintf(
+		'<div class="woocommerce-message-content"><strong>Added to Cart</strong>%s</div><a href="%s" class="button wc-forward">View Cart</a>',
+		$titles_string,
+		esc_url( wc_get_cart_url() )
+	);
+
+	return $message;
+}
+
+/**
  * Klarna promo shortcode.
  * Usage: [tfib_klarna_promo]
  

@@ -631,3 +631,147 @@ ul#shipping_method label {
 tr.tax-total th {
 	text-align: left !important;
 }
+
+/* ========================================
+   Premium "Added to Cart" Notification Banner
+   Athletic/Sportswear Style (Nike, Hugo Boss, Adidas)
+   ======================================== */
+
+.woocommerce-message,
+.woocommerce-info {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	width: 100%;
+	max-width: 100%;
+	padding: 24px 32px;
+	margin: 0 0 32px 0;
+	background-color: #000000;
+	border: none;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	color: #FFFFFF;
+	list-style: none;
+}
+
+/* Remove default WooCommerce icon */
+.woocommerce-message::before,
+.woocommerce-info::before {
+	display: none;
+}
+
+/* Content wrapper (icon + text) */
+.woocommerce-message-content {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex: 1;
+}
+
+/* Custom checkmark icon with white circular background */
+.woocommerce-message::after {
+	content: "✓";
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	background-color: #FFFFFF;
+	color: #000000;
+	border-radius: 50%;
+	font-size: 16px;
+	font-weight: 700;
+	flex-shrink: 0;
+	order: -1;
+	margin-right: 16px;
+}
+
+/* Message text styling */
+.woocommerce-message a:first-of-type,
+.woocommerce-message > a:not(.button) {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 1.3;
+	display: block;
+}
+
+/* Product name styling (if present) */
+.woocommerce-message .product-name,
+.woocommerce-message a:first-of-type::after {
+	color: #B5B5B5;
+	font-size: 16px;
+	font-weight: 400;
+	display: block;
+	margin-top: 4px;
+}
+
+/* View Cart button - Premium athletic style */
+.woocommerce-message .button,
+.woocommerce-info .button,
+.woocommerce-message a.button,
+.woocommerce-info a.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+	background-color: #000000;
+	border: 2px solid #FFFFFF;
+	border-radius: 12px;
+	color: #FFFFFF;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: none;
+	letter-spacing: 0;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: all 0.3s ease;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.woocommerce-message .button:hover,
+.woocommerce-info .button:hover,
+.woocommerce-message a.button:hover,
+.woocommerce-info a.button:hover {
+	background-color: #FFFFFF;
+	color: #000000;
+	border-color: #FFFFFF;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.woocommerce-message,
+	.woocommerce-info {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 20px 24px;
+		gap: 16px;
+	}
+
+	.woocommerce-message::after {
+		position: absolute;
+		top: 20px;
+		left: 24px;
+	}
+
+	.woocommerce-message-content {
+		padding-left: 40px;
+		width: 100%;
+	}
+
+	.woocommerce-message a:first-of-type,
+	.woocommerce-message > a:not(.button) {
+		font-size: 18px;
+	}
+
+	.woocommerce-message .button,
+	.woocommerce-info .button {
+		width: 100%;
+		padding-left: 40px;
+		justify-content: center;
+	}
+}
