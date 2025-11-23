@@ -91,6 +91,58 @@ function tfib_customize_woocommerce_orderby( $sortby ) {
 add_filter( 'woocommerce_catalog_orderby', 'tfib_customize_woocommerce_orderby' );
 
 /**
+ * Filter WooCommerce Shipping Rates to Limit Options
+ */
+add_filter( 'woocommerce_package_rates', 'tfib_filter_shipping_rates', 100, 2 );
+function tfib_filter_shipping_rates( $rates, $package ) {
+	// Keywords to include - if a shipping option contains these, it will be shown
+	$include_keywords = [
+		'usps',          // All USPS options
+		'ups',           // All UPS options
+		// 'fedex',      // Uncomment to add FedEx options
+	];
+	
+	// Keywords to exclude - these will be filtered out even if they match include
+	$exclude_keywords = [
+		'media mail',    // Exclude Media Mail (books/media only)
+		// 'parcel select', // Uncomment to exclude slower Parcel Select
+	];
+	
+	$filtered_rates = [];
+	
+	foreach ( $rates as $rate_id => $rate ) {
+		// Get the service name from the label
+		$label = strtolower( $rate->label );
+		
+		// Check if this rate should be excluded based on keywords
+		$should_exclude = false;
+		foreach ( $exclude_keywords as $keyword ) {
+			if ( stripos( $label, $keyword ) !== false ) {
+				$should_exclude = true;
+				break;
+			}
+		}
+		
+		// Check if this rate should be included based on keywords
+		$should_include = false;
+		foreach ( $include_keywords as $keyword ) {
+			if ( stripos( $label, $keyword ) !== false ) {
+				$should_include = true;
+				break;
+			}
+		}
+		
+		// Add to filtered rates if included and not excluded
+		if ( $should_include && ! $should_exclude ) {
+			$filtered_rates[ $rate_id ] = $rate;
+		}
+	}
+	
+	// Return filtered rates (or all rates if filtering resulted in empty array)
+	return ! empty( $filtered_rates ) ? $filtered_rates : $rates;
+}
+
+/**
  * Klarna promo shortcode.
  * Usage: [tfib_klarna_promo]
  
