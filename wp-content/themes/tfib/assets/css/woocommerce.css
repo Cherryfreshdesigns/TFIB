@@ -606,17 +606,28 @@ ul#shipping_method li {
 	list-style-type: none !important;
 	margin-left: 0 !important;
 	padding-left: 0 !important;
+	display: flex;
+	align-items: center;
+	padding: 2px 0;
 }
 
 /* Add padding between radio button and label */
 .woocommerce-shipping-methods input[type="radio"],
 ul#shipping_method input[type="radio"] {
 	margin-right: 8px;
+	flex-shrink: 0;
 }
 
 .woocommerce-shipping-methods label,
 ul#shipping_method label {
 	display: inline-block;
-	padding: 2px 0;
-	margin-left: 2px;
+	margin: 0;
+	padding: 0;
+}
+
+/* Align Tax label to the left like Shipping and Total */
+.woocommerce-cart-form + .cart-collaterals .cart_totals tr.tax-total th,
+.woocommerce-checkout-review-order-table tr.tax-total th,
+tr.tax-total th {
+	text-align: left !important;
 }
