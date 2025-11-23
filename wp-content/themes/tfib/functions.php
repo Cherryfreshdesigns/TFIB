@@ -157,6 +157,20 @@ function tfib_remove_zone_matching_notices( $message ) {
 }
 
 /**
+ * Clean up shipping rate labels - remove carrier prefixes
+ */
+add_filter( 'woocommerce_cart_shipping_method_full_label', 'tfib_clean_shipping_labels', 10, 2 );
+function tfib_clean_shipping_labels( $label, $method ) {
+	// Remove "Stamps.com " prefix from USPS labels
+	$label = str_replace( 'Stamps.com ', '', $label );
+	
+	// You can add more replacements here if needed for other carriers
+	// Example: $label = str_replace( 'UPS ', '', $label );
+	
+	return $label;
+}
+
+/**
  * Klarna promo shortcode.
  * Usage: [tfib_klarna_promo]
  
