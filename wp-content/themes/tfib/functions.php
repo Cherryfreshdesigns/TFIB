@@ -104,10 +104,10 @@ function tfib_filter_shipping_rates( $rates, $package ) {
 	
 	// Keywords to exclude - these will be filtered out even if they match include
 	$exclude_keywords = [
-		'media mail',    // Exclude Media Mail (books/media only)
-		// 'parcel select', // Uncomment to exclude slower Parcel Select
-		// 'first class',   // Uncomment to exclude First Class Mail
-		// 'ground advantage', // Uncomment to exclude Ground Advantage
+		'media mail',       // Exclude Media Mail (books/media only)
+		'parcel select',    // Exclude slower Parcel Select
+		'first class',      // Exclude First Class Mail
+		'ground advantage', // Exclude Ground Advantage
 	];
 	
 	$filtered_rates = [];
