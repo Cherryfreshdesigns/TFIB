@@ -98,7 +98,7 @@ function tfib_filter_shipping_rates( $rates, $package ) {
 	// Keywords to include - if a shipping option contains ANY of these, it will be shown
 	$include_keywords = [
 		'stamps.com',    // Stamps.com (USPS) options
-		'ups',           // UPS options
+		// 'ups',        // UPS options - Disabled for now
 		// 'fedex',      // Uncomment to add FedEx options
 	];
 	
