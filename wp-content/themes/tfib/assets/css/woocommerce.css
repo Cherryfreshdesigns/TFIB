@@ -299,6 +299,13 @@ body.tfib-filters-open .tfib-filters-overlay {
 		display: none !important;
 	}
 
+	/* Desktop: when body has .tfib-sidebar-hidden, hide the sidebar and let
+	   content span full width. We use the body class because JS toggles it. */
+	.body.tfib-sidebar-hidden .tfib-shop-sidebar,
+	body.tfib-sidebar-hidden .tfib-shop-sidebar {
+		display: none;
+	}
+
 }
 
 .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a {
@@ -311,6 +318,27 @@ body.tfib-filters-open .tfib-filters-overlay {
 
 .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a:hover {
 	text-decoration: underline;
+}
+
+/* Strengthen rule to remove bullets/indentation coming from plugin or browser */
+.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list,
+.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list li,
+.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item,
+.tfib-shop-filters .wpc-filter-product_cat .wpc-filters-ul-list,
+.tfib-shop-filters .wpc-filters-ul-list,
+.tfib-shop-filters ul {
+	list-style: none !important;
+	margin: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.tfib-shop-filters .wpc-filters-ul-list li,
+.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item,
+.tfib-shop-filters ul li {
+	display: block !important;
+	margin: 0 0 8px !important;
+	padding: 0 !important;
 }
 
 /* WPC Product Categories filter: stack items vertically and remove borders */
@@ -674,39 +702,17 @@ tr.woocommerce-shipping-totals.shipping {
 		flex-wrap: wrap;
 	}
 
-	/* Off-canvas sidebar for filters on tablet/mobile */
-	.tfib-shop-sidebar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 80vw;
-		max-width: 360px;
-		height: 100vh;
-		background: #fff;
-		box-shadow: 2px 0 12px rgba(0,0,0,0.15);
-		transform: translateX(-100%);
-		transition: transform 0.25s ease-out;
-		/* Ensure sidebar sits above the overlay (overlay is z-index:1000) */
-		z-index: 1205;
-		padding: 80px 20px 20px; /* leave room for site header */
-	}
-
-	.tfib-shop-sidebar.is-open {
-		transform: translateX(0);
-	}
-
-	.tfib-shop-filters-toggle {
-		display: inline-flex;
-		margin-bottom: 16px;
-	}
-
+	/* Filters remain inline on tablet/mobile per Figma — layout handled above */
 	.tfib-shop-filters {
-		position: static;
-		max-height: calc(100vh - 140px);
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 12px;
 	}
 
+	/* When inline, prevent page from locking overflow */
 	body.tfib-filters-open {
-		overflow: hidden;
+		overflow: visible;
 	}
 }
 
