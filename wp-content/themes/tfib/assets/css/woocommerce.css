@@ -139,6 +139,38 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 	color: #fff;
 }
 
+/* Prevent global theme/preset button hover rules (pink) from styling filter controls
+   Override the generic button hover/focus styles for any buttons inside the
+   TFIB shop filters sidebar and the offcanvas toggle so they keep the theme's
+   neutral controls. */
+.tfib-shop-filters button,
+.tfib-shop-filters input[type="button"],
+.tfib-shop-filters input[type="reset"],
+.tfib-shop-filters input[type="submit"],
+.tfib-shop-filters .wpc-filters-reset,
+.tfib-filter-offcanvas-toggle {
+	background-color: #fff !important;
+	color: #111 !important;
+	border-color: #111 !important;
+}
+
+.tfib-shop-filters button:hover,
+.tfib-shop-filters input[type="button"]:hover,
+.tfib-shop-filters input[type="reset"]:hover,
+.tfib-shop-filters input[type="submit"]:hover,
+.tfib-shop-filters .wpc-filters-reset:hover,
+.tfib-filter-offcanvas-toggle:hover,
+.tfib-shop-filters button:focus,
+.tfib-shop-filters input[type="button"]:focus,
+.tfib-shop-filters input[type="reset"]:focus,
+.tfib-shop-filters input[type="submit"]:focus,
+.tfib-shop-filters .wpc-filters-reset:focus,
+.tfib-filter-offcanvas-toggle:focus {
+	background-color: #111 !important;
+	color: #fff !important;
+	border-color: #111 !important;
+}
+
 /* Overlay for mobile off-canvas filters */
 .tfib-filters-overlay {
 	position: fixed;
