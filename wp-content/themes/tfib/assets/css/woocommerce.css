@@ -6,6 +6,42 @@ body.woocommerce-page {
 	font-family: var(--e-global-typography-text-font-family, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
 }
 
+/*
+ Force Filter Everything (wpc) filters to be expanded inside TFIB mobile sidebar.
+ This targets only the TFIB sidebar so we don't change plugin behavior globally.
+ */
+@media (max-width: 768px) {
+	/* Core widget containers */
+	.tfib-shop-filters .wpc-filters-main-wrap,
+	.tfib-shop-filters .wpc-filters-widget-wrapper,
+	.tfib-shop-filters .wpc-filters-widget-content,
+	.tfib-shop-filters .wpc-filter-content,
+	.tfib-shop-filters .wpc-filters-scroll-container {
+		display: block !important;
+		visibility: visible !important;
+		height: auto !important;
+		transform: none !important;
+		opacity: 1 !important;
+	}
+
+	/* Ensure closed state doesn't hide content inside the TFIB sidebar */
+	.tfib-shop-filters .wpc-filters-widget-content.wpc-closed {
+		display: block !important;
+	}
+
+	/* Hide plugin open/close buttons inside the TFIB sidebar to avoid redundant toggles */
+	.tfib-shop-filters .wpc-open-close-filters-button,
+	.tfib-shop-filters .wpc-open-button-container,
+	.tfib-shop-filters .wpc-open-close-filters-button {
+		display: none !important;
+	}
+
+	/* Expand any collapsed list items inside 'more/less' widgets */
+	.tfib-shop-filters .wpc-filter-more-less .wpc-filters-ul-list > li {
+		display: list-item !important;
+	}
+}
+
 .tfib-shop-layout {
 	display: grid;
 	grid-template-columns: 280px 1fr;
@@ -212,38 +248,57 @@ body.tfib-filters-open .tfib-filters-overlay {
    off-canvas behavior (transform-based slide-in) isn't suppressed by
    a global `display: none;` which prevented the flyout from appearing. */
 @media (min-width: 1025px) {
+	/* On tablet and mobile we want filters inline (not off-canvas).
+	   Desktop-specific off-canvas behavior was useful as a fallback but the
+	   UI design (Figma) requires the filters to remain inline on small viewports.
+	*/
+	.tfib-shop-sidebar {
+		position: relative;
+		width: auto;
+		max-width: none;
+		height: auto;
+		background: transparent;
+		box-shadow: none;
+		transform: none;
+		transition: none;
+		z-index: auto;
+		padding: 0;
+	}
+
+	/* ensure sidebar open/closed states don't hide the sidebar on small screens */
 	.tfib-shop-sidebar.is-open {
+		transform: none;
+		display: block;
+	}
+
+	/* Hide the off-canvas toggle on mobile since filters remain inline */
+	.tfib-shop-filters-toggle {
 		display: none;
 	}
-}
 
-.tfib-shop-filters {
-	background: #fff;
-	padding: 20px;
-	position: sticky;
-	top: 100px;
-	max-height: calc(100vh - 140px);
-	overflow-y: auto;
-}
+	/* Keep filter container static and visible in the flow */
+	.tfib-shop-filters {
+		position: static;
+		max-height: none;
+		overflow: visible;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 12px;
+		padding: 12px 0;
+		background: transparent;
+	}
 
-.tfib-shop-filters h3 {
-	font-size: 11px;
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	margin: 20px 0 10px;
-}
+	/* Don't lock page scroll for inline filters */
+	body.tfib-filters-open {
+		overflow: visible;
+	}
 
-/* Woo Product Categories block in TFIB sidebar */
-.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list {
-	list-style: none;
-	margin: 0 0 16px;
-	padding: 0;
-}
+	/* Hide the overlay; off-canvas overlay is not used for inline mobile filters */
+	.tfib-filters-overlay {
+		display: none !important;
+	}
 
-.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item {
-	margin: 0 0 6px;
-	padding: 0;
-	border: none;
 }
 
 .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a {
@@ -926,3 +981,46 @@ tr.tax-total th {
 		justify-content: center;
 	}
 }
+
+/* ---------------------------------------------------------------------------
+	 Override: neutralize Hello Elementor's global pink button hover/focus
+	 The parent theme (Hello Elementor) sets generic button hover/focus styles
+	 (background-color: #c36) in its reset.css. That rule is global and lives in
+	 the parent theme. Rather than editing the parent, we override the
+	 specific reset controls here in the child theme so updates won't overwrite
+	 our change.
+	 ----------------------------------------------------------------------- */
+
+/* Target reset-type controls and ensure hover/focus stay neutral */
+input[type="reset"],
+button[type="reset"],
+input[type="reset"]:not(:disabled),
+button[type="reset"]:not(:disabled) {
+	background-color: transparent !important;
+	color: inherit !important;
+	border-color: var(--tfib-border-color, #dcdcdc) !important;
+	box-shadow: none !important;
+}
+
+input[type="reset"]:hover,
+button[type="reset"]:hover,
+input[type="reset"]:focus,
+button[type="reset"]:focus {
+	background-color: transparent !important;
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+/* Also ensure reset controls used inside the TFIB filter UI and related
+	 editor/reset controls keep neutral styles */
+.tfib-shop-filters input[type="reset"],
+.tfib-shop-filters button[type="reset"],
+.tfib-shop-filters .ast-reset-btn,
+.tfib-shop-filters .ast-color-clear-button,
+.tfib-shop-filters .wpc-filters-reset {
+	background-color: transparent !important;
+	color: inherit !important;
+	border-color: transparent !important;
+	box-shadow: none !important;
+}
+
