@@ -600,20 +600,20 @@ ul#shipping_method {
 	margin-left: 0 !important;
 }
 
-.woocommerce-shipping-methods li,
-ul#shipping_method li {
+.woocommerce-checkout .woocommerce-shipping-methods li,
+.woocommerce-checkout ul#shipping_method li {
 	list-style: none !important;
 	list-style-type: none !important;
 	margin-left: 0 !important;
 	padding-left: 0 !important;
-	display: block;
+	display: flex;
 	align-items: center;
 	padding: 8px 0;
 }
 
 /* Add padding between radio button and label */
-.woocommerce-shipping-methods input[type="radio"],
-ul#shipping_method input[type="radio"] {
+.woocommerce-checkout .woocommerce-shipping-methods input[type="radio"],
+.woocommerce-checkout ul#shipping_method input[type="radio"] {
 	margin-right: 10px;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -621,8 +621,8 @@ ul#shipping_method input[type="radio"] {
 	vertical-align: middle;
 }
 
-.woocommerce-shipping-methods label,
-ul#shipping_method label {
+.woocommerce-checkout .woocommerce-shipping-methods label,
+.woocommerce-checkout ul#shipping_method label {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
