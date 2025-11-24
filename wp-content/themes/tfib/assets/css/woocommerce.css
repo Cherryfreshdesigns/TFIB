@@ -82,7 +82,7 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 .tfib-filter-offcanvas-toggle .tfib-filter-icon {
 	width: 24px;
 	height: 24px;
-	background-image: url('https://tfib.local/wp-content/uploads/2025/11/filter-icon.svg');
+	background-image: url('/wp-content/uploads/2025/11/filter-icon.svg');
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
@@ -606,7 +606,7 @@ ul#shipping_method li {
 	list-style-type: none !important;
 	margin-left: 0 !important;
 	padding-left: 0 !important;
-	display: flex;
+	display: block;
 	align-items: center;
 	padding: 8px 0;
 }
@@ -626,6 +626,23 @@ ul#shipping_method label {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
+}
+
+/* Remove bullets from payment methods (Stripe, Klarna, etc.) */
+.wc_payment_methods,
+.payment_methods,
+.wc_payment_methods li,
+.payment_methods li,
+.wc_payment_methods label,
+.payment_methods label {
+	list-style: none !important;
+	margin: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* Some gateways render the input as hidden and rely on list markers; ensure none show */
+.wc_payment_methods, .payment_methods {
+	padding-left: 0 !important;
 }
 
 /* Align Tax label to the left like Shipping and Total */
