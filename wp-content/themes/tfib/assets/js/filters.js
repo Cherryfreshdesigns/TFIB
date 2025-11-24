@@ -51,6 +51,32 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
+	// Create an overlay for mobile when filters are open so clicking outside closes it
+	var overlay = document.querySelector('.tfib-filters-overlay');
+	if (!overlay) {
+		overlay = document.createElement('div');
+		overlay.className = 'tfib-filters-overlay';
+		document.body.appendChild(overlay);
+	}
+
+	overlay.addEventListener('click', function() {
+		// close filters when clicking the overlay
+		sidebar.classList.remove('is-open');
+		body.classList.remove('tfib-filters-open');
+		body.classList.remove('tfib-sidebar-hidden');
+		updateHeaderLabel();
+	});
+
+	// Close with Escape key for accessibility
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape' && body.classList.contains('tfib-filters-open')) {
+			sidebar.classList.remove('is-open');
+			body.classList.remove('tfib-filters-open');
+			body.classList.remove('tfib-sidebar-hidden');
+			updateHeaderLabel();
+		}
+	});
+
 	// Keep label in sync on resize between desktop and mobile layouts.
 	window.addEventListener('resize', function() {
 		updateHeaderLabel();
@@ -59,3 +85,4 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Initial label state.
 	updateHeaderLabel();
 });
+
