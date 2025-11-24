@@ -175,9 +175,14 @@ body.tfib-filters-open .tfib-filters-overlay {
 	position: relative;
 }
 
-/* Desktop: allow sidebar to be hidden via .is-open toggle as well */
-.tfib-shop-sidebar.is-open {
-	display: none;
+/* Desktop: allow sidebar to be hidden via .is-open toggle as well
+   NOTE: moved the display rule into a desktop-only media query so mobile
+   off-canvas behavior (transform-based slide-in) isn't suppressed by
+   a global `display: none;` which prevented the flyout from appearing. */
+@media (min-width: 1025px) {
+	.tfib-shop-sidebar.is-open {
+		display: none;
+	}
 }
 
 .tfib-shop-filters {
@@ -244,8 +249,10 @@ body.tfib-filters-open .tfib-filters-overlay {
 }
 
 /* Hide empty filter widgets/containers so inactive filters are not visible */
+/* NOTE: removed the generic `.wpc-filter` selector which accidentally hid all
+   filter widgets — only hide filters that are explicitly empty or marked as
+   having no items so the widget block remains visible on mobile devices. */
 .tfib-shop-filters .wpc-filter-chips-list.wpc-empty-chips-container,
-.tfib-shop-filters .wpc-filter,
 .tfib-shop-filters .wpc-filter:not(.wpc-has-items),
 .tfib-shop-filters .wpc-filter .wpc-filter-content:empty,
 .tfib-shop-filters .tfib-no-filters {
@@ -592,7 +599,8 @@ tr.woocommerce-shipping-totals.shipping {
 		box-shadow: 2px 0 12px rgba(0,0,0,0.15);
 		transform: translateX(-100%);
 		transition: transform 0.25s ease-out;
-		z-index: 999;
+		/* Ensure sidebar sits above the overlay (overlay is z-index:1000) */
+		z-index: 1205;
 		padding: 80px 20px 20px; /* leave room for site header */
 	}
 
