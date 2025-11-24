@@ -646,8 +646,9 @@ ul#shipping_method {
 }
 
 /* Add padding to Cart totals box and Checkout order summary (right column) */
+/* Mobile-first: modest padding for small screens */
 .woocommerce .cart-collaterals .cart_totals {
-	padding: 20px !important;
+	padding: 12px !important;
 	box-sizing: border-box;
 }
 
@@ -660,17 +661,45 @@ ul#shipping_method {
 .woocommerce-checkout #order_review,
 .woocommerce-checkout .order_review,
 .woocommerce-checkout .woocommerce-checkout-review-order-table {
-	padding: 18px 20px !important;
+	padding: 12px 14px !important;
 	box-sizing: border-box;
 }
 
 .woocommerce-checkout .woocommerce-checkout-payment {
-	padding: 14px 18px !important;
+	padding: 10px 12px !important;
 }
 
 .woocommerce .cart-collaterals .cart_totals .shipping,
 .woocommerce .cart-collaterals .cart_totals .order-total {
 	padding-top: 8px !important;
+}
+
+/* Desktop: increase padding for a roomier, premium layout */
+@media (min-width: 1024px) {
+	.woocommerce .cart-collaterals .cart_totals {
+		padding: 32px !important;
+	}
+
+	.woocommerce-checkout .col2 .col-2,
+	.woocommerce-checkout #order_review,
+	.woocommerce-checkout .order_review,
+	.woocommerce-checkout .woocommerce-checkout-review-order-table {
+		padding: 28px 32px !important;
+	}
+
+	.woocommerce-checkout .woocommerce-checkout-payment {
+		padding: 20px 24px !important;
+	}
+}
+
+/* Small screens: ensure compact padding */
+@media (max-width: 768px) {
+	.woocommerce .cart-collaterals .cart_totals,
+	.woocommerce-checkout .col2 .col-2,
+	.woocommerce-checkout #order_review,
+	.woocommerce-checkout .order_review {
+		padding: 10px 12px !important;
+	}
 }
 
 /* Align Tax label to the left like Shipping and Total */
