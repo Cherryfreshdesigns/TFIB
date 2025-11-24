@@ -158,7 +158,10 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 	background-color: #fff; /* white background */
 	color: #111;            /* dark text */
 	font-size: 14px;
-	padding: 0 26px 0 0; /* space for chevron */
+	padding: 6px 28px 6px 8px; /* small vertical padding and room for chevron */
+	width: 160px; /* compact width per Figma */
+	min-width: 120px;
+	max-width: 220px;
 	cursor: pointer;
 }
 
@@ -167,12 +170,25 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
     position: absolute;
-    right: 0;
-    top: 60%;
-    transform: translateY(-50%);
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
     pointer-events: none;
-    font-size: 1.2rem;
+	font-size: 0.9rem;
     color: #111;
+}
+
+/* Ensure sort control doesn't stretch in the header layout */
+.tfib-shop-header-sort {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* On very small screens, allow the select to shrink */
+@media (max-width: 480px) {
+	.tfib-shop-header-sort .woocommerce-ordering select.orderby {
+		width: 120px;
+	}
 }
 
 .tfib-shop-filters-toggle {
