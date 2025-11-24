@@ -645,6 +645,34 @@ ul#shipping_method {
 	padding-left: 0 !important;
 }
 
+/* Add padding to Cart totals box and Checkout order summary (right column) */
+.woocommerce .cart-collaterals .cart_totals {
+	padding: 20px !important;
+	box-sizing: border-box;
+}
+
+.woocommerce .cart-collaterals .cart_totals table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.woocommerce-checkout .col2 .col-2,
+.woocommerce-checkout #order_review,
+.woocommerce-checkout .order_review,
+.woocommerce-checkout .woocommerce-checkout-review-order-table {
+	padding: 18px 20px !important;
+	box-sizing: border-box;
+}
+
+.woocommerce-checkout .woocommerce-checkout-payment {
+	padding: 14px 18px !important;
+}
+
+.woocommerce .cart-collaterals .cart_totals .shipping,
+.woocommerce .cart-collaterals .cart_totals .order-total {
+	padding-top: 8px !important;
+}
+
 /* Align Tax label to the left like Shipping and Total */
 .woocommerce-cart-form + .cart-collaterals .cart_totals tr.tax-total th,
 .woocommerce-checkout-review-order-table tr.tax-total th,
