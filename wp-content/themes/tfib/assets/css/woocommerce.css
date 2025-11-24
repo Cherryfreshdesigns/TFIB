@@ -2,8 +2,16 @@
 
 body.woocommerce-page {
 	background-color: #ffffff;
-	/* Inherit Elementor / Hello font stack so shop matches the rest of the site */
-	font-family: var(--e-global-typography-text-font-family, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+	/* Prefer Poppins for brand typography, fall back to Elementor global text face */
+	font-family: 'Poppins', var(--e-global-typography-text-font-family, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+	font-size: 16px; /* base */
+	line-height: 1.45;
+	color: #111;
+}
+
+/* Use Elementor heading font if available */
+h1,h2,h3,h4,h5,h6 {
+	font-family: var(--e-global-typography-heading-font-family, 'Poppins', var(--e-global-typography-text-font-family));
 }
 
 /*
@@ -88,7 +96,18 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 .tfib-shop-header-controls {
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: 16px;
+	/* On desktop, push controls to the right to match Figma */
+}
+
+@media (min-width: 1025px) {
+    .tfib-shop-header-controls {
+        justify-content: flex-end;
+    }
+
+    /* Order controls so the filter toggle sits to the left of the sort control */
+    .tfib-shop-header-controls .tfib-filter-offcanvas-toggle { order: 1; }
+    .tfib-shop-header-controls .tfib-shop-header-sort { order: 2; }
 }
 
 .tfib-filter-offcanvas-toggle {
@@ -320,25 +339,29 @@ body.tfib-filters-open .tfib-filters-overlay {
 	text-decoration: underline;
 }
 
-/* Strengthen rule to remove bullets/indentation coming from plugin or browser */
-.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list,
-.tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list li,
-.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item,
-.tfib-shop-filters .wpc-filter-product_cat .wpc-filters-ul-list,
-.tfib-shop-filters .wpc-filters-ul-list,
-.tfib-shop-filters ul {
-	list-style: none !important;
-	margin: 0 !important;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+/* Remove bullets/indentation for category and WPC lists using higher specificity
+   (avoid !important by targeting the sidebar container with body + sidebar). */
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters .wp-block-woocommerce-product-categories ul.wc-block-product-categories-list,
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters .wpc-filters-ul-list,
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters ul {
+	list-style: none;
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
 }
 
-.tfib-shop-filters .wpc-filters-ul-list li,
-.tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item,
-.tfib-shop-filters ul li {
-	display: block !important;
-	margin: 0 0 8px !important;
-	padding: 0 !important;
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters .wpc-filters-ul-list li,
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item,
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters ul li {
+	display: block;
+	margin: 0 0 8px;
+	padding: 0;
+}
+
+/* Ensure category links have predictable inline layout */
+body.woocommerce-page .tfib-shop-sidebar .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a {
+	display: block;
+	padding-left: 0;
 }
 
 /* WPC Product Categories filter: stack items vertically and remove borders */
@@ -450,7 +473,7 @@ body.tfib-filters-open .tfib-filters-overlay {
 	display: grid;
 	/* Default: 2 across on small/medium screens */
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 24px 16px;
+	gap: 28px 16px; /* row gap x column gap */
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -459,8 +482,8 @@ body.tfib-filters-open .tfib-filters-overlay {
 /* Tablet / desktop: always 3 across, Nike-style */
 @media (min-width: 1024px) {
 	.tfib-products-grid {
-		/* 3 columns with a generous max width similar to Nike (~592px) */
-		grid-template-columns: repeat(3, minmax(0, 592px));
+		/* 3 columns with card width close to Figma */
+		grid-template-columns: repeat(3, minmax(0, 360px));
 		gap: 32px 24px;
 		justify-content: center; /* center the row when cards don't fill full width */
 	}
@@ -481,19 +504,22 @@ body.tfib-filters-open .tfib-filters-overlay {
 .tfib-product-card img {
 	width: 100%;
 	height: auto;
+	aspect-ratio: 1 / 1; /* square thumbnails per Figma */
+	object-fit: cover;
 	margin-bottom: 18px;
 }
 
 .tfib-product-card .woocommerce-loop-product__title {
-	font-size: 1.2rem;
-    font-weight: 600;
-	text-transform: normal;
-	margin: 0 0 4px;
+	font-size: 18px;
+	font-weight: 600;
+	text-transform: none;
+	margin: 0 0 6px;
 }
 
 .tfib-product-card .price {
-    font-size: 1.25rem;
-    font-weight: 500;
+	font-size: 16px;
+	font-weight: 600;
+	color: #111;
 }
 .variations th {
     background-color: transparent;
