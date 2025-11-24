@@ -38,7 +38,7 @@ function tfib_enqueue_assets() {
 	// Child theme main stylesheet
 	wp_enqueue_style( 'tfib-style', get_stylesheet_uri(), [ 'hello-elementor' ], $version );
 	// Force CSS cache bust with manual version number
-	wp_enqueue_style( 'tfib-woocommerce', get_stylesheet_directory_uri() . '/assets/css/woocommerce.css', [ 'tfib-style' ], '1.0.2' );
+	wp_enqueue_style( 'tfib-woocommerce', get_stylesheet_directory_uri() . '/assets/css/woocommerce.css', [ 'tfib-style' ], '1.0.3' );
 
 	wp_enqueue_script( 'tfib-filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', [ 'jquery' ], $version, true );
 }
