@@ -105,9 +105,19 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
         justify-content: flex-end;
     }
 
-    /* Order controls so the filter toggle sits to the left of the sort control */
-    .tfib-shop-header-controls .tfib-filter-offcanvas-toggle { order: 1; }
-    .tfib-shop-header-controls .tfib-shop-header-sort { order: 2; }
+	/* Order controls so the filter toggle sits to the left of the sort control */
+	.tfib-shop-header-controls .tfib-filter-offcanvas-toggle { order: 1; }
+	.tfib-shop-header-controls .tfib-shop-header-sort { order: 2; }
+
+	/* Desktop & laptop: bring the Sort By chevron closer to the text
+	   by reducing the select's right padding and moving the pseudo caret. */
+	.tfib-shop-header-sort .woocommerce-ordering select.orderby {
+		padding-right: 12px; /* tighter on larger viewports */
+	}
+
+	.tfib-shop-header-sort .woocommerce-ordering::after {
+		right: 2px; /* place the chevron very close to the select edge */
+	}
 }
 
 .tfib-filter-offcanvas-toggle {
@@ -158,7 +168,9 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 	background-color: #fff; /* white background */
 	color: #111;            /* dark text */
 	font-size: 14px;
-	padding: 6px 22px 6px 8px; /* small vertical padding and room for chevron */
+	/* Reduce the right padding so the chevron sits closer on larger viewports
+	   Mobile-specific rules further reduce padding as needed. */
+	padding: 6px 18px 6px 8px; /* vertical | right | vertical | left */
 	width: 160px; /* compact width per Figma */
 	min-width: 120px;
 	max-width: 220px;
@@ -166,16 +178,16 @@ body.tfib-sidebar-hidden .tfib-shop-layout {
 }
 
 .tfib-shop-header-sort .woocommerce-ordering::after {
-    content: "\f078";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
+	content: "\f078";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	position: absolute;
 	right: 6px;
 	top: 50%;
 	transform: translateY(-50%);
-    pointer-events: none;
+	pointer-events: none;
 	font-size: 0.9rem;
-    color: #111;
+	color: #111;
 }
 
 /* Ensure sort control doesn't stretch in the header layout */
@@ -378,6 +390,102 @@ body.tfib-filters-open .tfib-filters-overlay {
 
 .tfib-shop-filters .wp-block-woocommerce-product-categories .wc-block-product-categories-list-item a:hover {
 	text-decoration: underline;
+}
+
+/* Fix: elementor header reserved height can create a large gap on the Shop
+   page (mobile devices / iPhone). Force header containers to auto height on
+   WooCommerce archive/shop pages so the Shop controls sit directly above
+   the product grid. Scoped to the shop/archive body class to avoid affecting
+   other pages. */
+body.woocommerce .elementor-theme-builder-content-area,
+body.woocommerce .elementor-location-header,
+body.woocommerce .elementor.elementor-location-header {
+	height: auto !important;
+	min-height: 0 !important;
+}
+
+/* Reduce the vertical gap between the header controls (Show Filters / Sort)
+   and the product grid on tablet/mobile. This addresses extra top padding
+   seen on iPhone and other narrow viewports. */
+@media (max-width: 1024px) {
+	.tfib-shop-header {
+		/* remove remaining gap so products sit directly under controls */
+		margin-bottom: 0 !important;
+		padding-bottom: 0;
+	}
+
+	.tfib-shop-layout {
+		/* eliminate top padding and tighten overall gap on small viewports */
+		padding-top: 0 !important;
+		gap: 0 !important;
+		/* When sidebar becomes an off-canvas overlay, make the main content
+		   span the full width (single column) so the fixed sidebar doesn't leave
+		   an empty column in the grid. */
+		grid-template-columns: 1fr;
+	}
+
+	.tfib-products-grid {
+		margin-top: 0 !important;
+	}
+
+	/* Mobile: make the sidebar an overlay (fixed) so it slides over the
+	   main content instead of pushing the <main> down. Keep transforms for
+	   smooth slide-in/out and preserve accessibility overlay ordering. */
+	.tfib-shop-sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: min(320px, 86vw);
+		background: #fff;
+		z-index: 1110; /* sit above header but below permanent UI like modals if needed */
+		overflow-y: auto;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+		transform: translateX(-100%);
+		transition: transform 0.25s ease;
+		will-change: transform;
+		padding: 18px 16px;
+	}
+
+	/* Show the filters toggle on small screens so users can open the aside.
+	   The toggle is hidden by default (desktop) and shown only for mobile. */
+	.tfib-shop-filters-toggle {
+		display: inline-flex;
+	}
+
+	/* When open, slide in and lock page scroll */
+	.tfib-shop-sidebar.is-open {
+		transform: translateX(0);
+	}
+
+	/* Prevent body scrolling when filters are open */
+	body.tfib-filters-open {
+		overflow: hidden;
+	}
+
+	/* Hide the WooCommerce block's own open button, but surface its
+	   overlay content inline inside the TFIB sidebar so filters like Size
+	   and Price are visible without opening a separate dialog. */
+		/* Historically we hid the block open button and inlined overlay content.
+		   Revert to using the plugin overlay: show the open button and hide any
+		   cloned/inline overlay contents inserted by the theme JS so the plugin's
+		   dialog/overlay behavior works as intended on mobile. */
+		.tfib-shop-filters .wc-block-product-filters__open-overlay {
+			display: inline-flex !important;
+			visibility: visible !important;
+		}
+
+		/* If theme JS created a `.tfib-wc-overlay-contents` container (clones), hide it.
+		   This avoids duplicate stacked filter chrome in the sidebar. */
+		.tfib-shop-filters .tfib-wc-overlay-contents {
+			display: none !important;
+		}
+
+	/* Allow the WooCommerce block to control its overlay visibility. We previously
+	   forced the block's overlay elements to be hidden which prevented the
+	   plugin's open-overlay button from showing the dialog. Keep theme clones
+	   hidden via `.tfib-wc-overlay-contents` instead so we don't produce
+	   duplicate chrome in the sidebar. */
 }
 
 /* Remove bullets/indentation for category and WPC lists using higher specificity
@@ -680,7 +788,8 @@ tr.woocommerce-shipping-totals.shipping {
 .woocommerce .added_to_cart:hover,
 .woocommerce .single_add_to_cart_button:hover {
 	background-color: transparent;
-	color: var(--e-global-color-primary, #000);
+	/* Force white text on hover for better contrast */
+	color: #fff;
 	border-color: var(--e-global-color-primary, #000);
 }
 
@@ -1099,5 +1208,53 @@ button[type="reset"]:focus {
 	color: inherit !important;
 	border-color: transparent !important;
 	box-shadow: none !important;
+}
+
+/* TFIB: moved WC overlay controls (temporary styling) */
+.tfib-wc-overlay-contents .tfib-wc-controls {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 8px;
+	box-sizing: border-box;
+}
+
+.tfib-wc-overlay-contents .tfib-wc-controls .tfib-wc-clear,
+.tfib-wc-overlay-contents .tfib-wc-controls .tfib-wc-apply {
+	-webkit-appearance: none;
+	appearance: none;
+	border: 1px solid #d1d1d1;
+	background: #fff;
+	color: #111;
+	padding: 10px 14px;
+	border-radius: 999px;
+	font-size: 14px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.tfib-wc-overlay-contents .tfib-wc-controls .tfib-wc-apply {
+	background: #111;
+	color: #fff;
+	border-color: #111;
+}
+
+/* stacked on narrow mobile for better reachability */
+@media (max-width: 480px) {
+	.tfib-wc-overlay-contents .tfib-wc-controls {
+		flex-direction: column;
+		gap: 8px;
+	}
+	.tfib-wc-overlay-contents .tfib-wc-controls .tfib-wc-clear,
+	.tfib-wc-overlay-contents .tfib-wc-controls .tfib-wc-apply {
+		width: 100%;
+	}
+}
+
+/* Helpful visual debug (toggle by setting window.tfibFiltersDebug = true)
+	 This will make moved areas slightly outlined in development only. */
+body .tfib-wc-overlay-contents[data-tfib-wc-moved] {
+	outline: none; /* placeholder so rule isn't empty; set border in debug JS if needed */
 }
 
